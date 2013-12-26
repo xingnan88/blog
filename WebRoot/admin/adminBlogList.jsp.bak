@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@include file="header.jsp" %>
+<%@page import="java.util.List"%>
+<%@page import="cn.com.jobedu.blog.Blog"%>
+<style type="text/css" media="all">
+        @import url("/blog/admin/css/screen.css");
+</style>
+<script type="text/javascript">		
+			function del() {
+				var msg = "您真的确定要删除吗？\n\n请确认！";
+				if (confirm(msg)==true){
+						return true;
+					}else{
+						return false;
+					}
+				}
+</script>
+
+<h2>博文管理</h2>
+
+<table id="tab">
+<tr>
+ 	<th>编号</th>
+   <th>主题</th>
+   <th>分类</th>
+   <th>日期</th>
+   <th>操作</th>
+</tr>
+		<%for (int i = 0; i < list.size(); i++) {
+			blog = (Blog) list.get(i);	%>			
+		<tr>
+		 <td><%=blog.getId()%></td>
+	       <td><%=blog.getTitle()%></td>
+		   <td><%=blog.getCategory() %></td>
+		   <td><%=blog.getCreatedTime()%> </td>
+		  <td align="center">
+		
+        	<a href="/blog/servlet/PreEditBlogServlet?id=<%=blog.getId()%>"><img src="/blog/admin/images/edit.gif " border="0"/></a>
+           <a href="/blog/servlet/DeleteBlogServlet?id=<%=blog.getId()%>" onclick="javascript:return del()"><img src="/blog/admin/images/delete.gif" border="0"/></a>	   
+		   </td>    
+		</tr>		
+		<%}	%>
+	</table>			
+<%@include file="footer.jsp" %>
